@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HOOP SQUAD — Everybody Belongs in the Squad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* =============================================
+       CSS CUSTOM PROPERTIES
+    ============================================= */
+    :root {
+      --black:   #1a1a1a;
+      --orange:  #FF6B00;
+      --white:   #ffffff;
+      --purple:  #6B2FA0;
+      --green:   #2D8A4E;
+      --gray-bg: #f4f4f4;
+      --dark-card: #222233;
+      --orange-glow: 0 0 20px rgba(255,107,0,0.6);
+      --purple-glow: 0 0 20px rgba(107,47,160,0.6);
+      --green-glow:  0 0 20px rgba(45,138,78,0.6);
+      --transition: 0.25s ease;
+      --radius: 14px;
+      --font-head: 'Bangers', 'Impact', sans-serif;
+      --font-body: 'Nunito', 'Arial Rounded MT Bold', sans-serif;
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--black);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    a { text-decoration: none; color: inherit; }
+
+    ul { list-style: none; }
+
+    /* =============================================
+       UTILITY
+    ============================================= */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section-label {
+      font-family: var(--font-head);
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      letter-spacing: 2px;
+      line-height: 1.1;
+    }
+
+    /* =============================================
+       BUTTONS
+    ============================================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-head);
+      font-size: 1.15rem;
+      letter-spacing: 1.5px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      text-transform: uppercase;
+    }
+
+    .btn-orange {
+      background: var(--orange);
+      color: var(--white);
+      border-color: var(--orange);
+    }
+    .btn-orange:hover {
+      transform: scale(1.06);
+      box-shadow: var(--orange-glow);
+    }
+
+    .btn-outline-white {
+      background: transparent;
+      color: var(--white);
+      border-color: var(--white);
+    }
+    .btn-outline-white:hover {
+      background: var(--white);
+      color: var(--black);
+      transform: scale(1.06);
+    }
+
+    .btn-purple {
+      background: var(--purple);
+      color: var(--white);
+      border-color: var(--purple);
+    }
+    .btn-purple:hover {
+      transform: scale(1.06);
+      box-shadow: var(--purple-glow);
+    }
+
+    .btn-green {
+      background: var(--green);
+      color: var(--white);
+      border-color: var(--green);
+    }
+    .btn-green:hover {
+      transform: scale(1.06);
+      box-shadow: var(--green-glow);
+    }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--black);
+      border-bottom: 4px solid var(--orange);
+      padding: 0 24px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    }
+
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      letter-spacing: 3px;
+      color: var(--white);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1;
+    }
+    .nav-logo span.hoop { color: var(--orange); }
+    .nav-logo span.ball { font-size: 1.6rem; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-links a {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      letter-spacing: 1px;
+      color: var(--white);
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: color var(--transition), background var(--transition);
+      text-transform: uppercase;
+    }
+    .nav-links a:hover {
+      color: var(--orange);
+      background: rgba(255,107,0,0.12);
+    }
+
+    .nav-cta {
+      font-size: 0.95rem;
+      padding: 10px 20px;
+      margin-left: 12px;
+    }
+
+    /* hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 28px;
+      height: 3px;
+      background: var(--white);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* mobile menu */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: var(--black);
+      border-bottom: 4px solid var(--orange);
+      padding: 20px 24px;
+      z-index: 999;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      letter-spacing: 1.5px;
+      color: var(--white);
+      padding: 12px 16px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      transition: background var(--transition), color var(--transition);
+    }
+    .mobile-menu a:hover { background: var(--orange); color: var(--white); }
+    .mobile-menu .btn-orange {
+      margin-top: 8px;
+      text-align: center;
+      justify-content: center;
+    }
+
+    /* =============================================
+       SECTION 1 — HERO
+    ============================================= */
+    .hero {
+      min-height: 100vh;
+      padding-top: 72px;
+      background:
+        radial-gradient(ellipse at 70% 40%, rgba(255,107,0,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(107,47,160,0.15) 0%, transparent 50%),
+        linear-gradient(160deg, #0d0d0d 0%, #1c1208 40%, #1a1a1a 100%);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* court lines decorative */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,107,0,0.06) 59px, rgba(255,107,0,0.06) 60px),
+        repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,107,0,0.04) 59px, rgba(255,107,0,0.04) 60px);
+      pointer-events: none;
+    }
+
+    /* animated arc */
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      border: 6px solid rgba(255,107,0,0.12);
+      border-radius: 50%;
+      right: -100px; top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      animation: pulseRing 4s ease-in-out infinite;
+    }
+
+    @keyframes pulseRing {
+      0%, 100% { transform: translateY(-50%) scale(1); opacity: 0.5; }
+      50% { transform: translateY(-50%) scale(1.05); opacity: 0.9; }
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 80px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-head);
+      font-size: 1rem;
+      letter-spacing: 4px;
+      color: var(--orange);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .hero-headline {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      animation: slideUp 0.8s ease both;
+    }
+    .hero-headline .accent { color: var(--orange); }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      font-weight: 600;
+      animation: slideUp 0.8s 0.2s ease both;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      animation: slideUp 0.8s 0.4s ease both;
+    }
+
+    /* right column: character art placeholder */
+    .hero-art {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-art-box {
+      width: 100%;
+      max-width: 460px;
+      aspect-ratio: 1 / 1.1;
+      background:
+        radial-gradient(ellipse at center, rgba(255,107,0,0.25) 0%, transparent 70%),
+        linear-gradient(145deg, #2a1a00 0%, #1a1a2e 100%);
+      border-radius: 20px;
+      border: 4px solid rgba(255,107,0,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 0 60px rgba(255,107,0,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-art-box::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border: 3px dashed rgba(255,107,0,0.15);
+      border-radius: 50%;
+    }
+
+    .hero-art-emoji {
+      font-size: 7rem;
+      line-height: 1;
+      filter: drop-shadow(0 0 20px rgba(255,107,0,0.5));
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    .hero-art-label {
+      font-family: var(--font-head);
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 10px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 2px solid;
+      text-transform: uppercase;
+    }
+    .badge-orange { color: var(--orange); border-color: var(--orange); background: rgba(255,107,0,0.1); }
+    .badge-purple { color: #b57fff; border-color: var(--purple); background: rgba(107,47,160,0.15); }
+    .badge-green  { color: #5fd98a; border-color: var(--green);  background: rgba(45,138,78,0.15); }
+
+    /* =============================================
+       SECTION 2 — MEET THE STARTING FIVE
+    ============================================= */
+    .team-section {
+      padding: 96px 0;
+      background: var(--white);
+      position: relative;
+    }
+
+    .team-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--orange), var(--purple), var(--green), var(--orange));
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header .section-label { color: var(--black); }
+
+    .section-header .section-sub {
+      font-size: 1.1rem;
+      color: #555;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .section-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 14px 0 0;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      max-width: 80px;
+      height: 4px;
+      border-radius: 2px;
+    }
+    .divider-orange::before,
+    .divider-orange::after { background: var(--orange); }
+
+    .cards-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    /* character card */
+    .char-card {
+      border-radius: var(--radius);
+      border: 3px solid;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+    }
+    .char-card:hover {
+      transform: translateY(-8px);
+    }
+    .char-card.orange { border-color: var(--orange); }
+    .char-card.orange:hover { box-shadow: 0 16px 40px rgba(255,107,0,0.25); }
+    .char-card.purple { border-color: var(--purple); }
+    .char-card.purple:hover { box-shadow: 0 16px 40px rgba(107,47,160,0.25); }
+    .char-card.green  { border-color: var(--green);  }
+    .char-card.green:hover  { box-shadow: 0 16px 40px rgba(45,138,78,0.25); }
+
+    .char-img {
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5rem;
+      position: relative;
+    }
+    .char-card.orange .char-img { background: linear-gradient(135deg, #fff3e8, #ffe0c0); }
+    .char-card.purple .char-img { background: linear-gradient(135deg, #f0e8ff, #d8c0ff); }
+    .char-card.green  .char-img { background: linear-gradient(135deg, #e8f5ed, #c0e8d0); }
+
+    .char-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .char-name {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      letter-spacing: 2px;
+      color: var(--black);
+      line-height: 1;
+    }
+
+    .char-role {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+    .char-card.orange .char-role { color: var(--orange); }
+    .char-card.purple .char-role { color: var(--purple); }
+    .char-card.green  .char-role { color: var(--green);  }
+
+    .char-traits {
+      list-style: none;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .char-traits li {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #444;
+      padding: 3px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .char-traits li::before {
+      content: '✓';
+      font-weight: 900;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+    .char-card.orange .char-traits li::before { color: var(--orange); }
+    .char-card.purple .char-traits li::before { color: var(--purple); }
+    .char-card.green  .char-traits li::before { color: var(--green);  }
+
+    .char-btn {
+      font-size: 0.85rem;
+      padding: 10px 14px;
+      border-radius: 6px;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* =============================================
+       SECTION 3 — REC CENTER
+    ============================================= */
+    .rec-section {
+      padding: 96px 0;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.02) 0px,
+          rgba(255,255,255,0.02) 1px,
+          transparent 1px,
+          transparent 50px
+        ),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,0.02) 0px,
+          rgba(255,255,255,0.02) 1px,
+          transparent 1px,
+          transparent 50px
+        ),
+        linear-gradient(180deg, #141428 0%, #1a1a2e 100%);
+      position: relative;
+    }
+
+    /* center circle */
+    .rec-section::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border: 4px solid rgba(255,107,0,0.08);
+      border-radius: 50%;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .rec-section .section-label { color: var(--white); }
+    .rec-section .section-sub   { color: rgba(255,255,255,0.6); }
+
+    .rec-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    .rec-card {
+      background: rgba(255,255,255,0.04);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 32px 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition);
+    }
+    .rec-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 30px rgba(255,107,0,0.35);
+      border-color: var(--orange);
+      background: rgba(255,107,0,0.08);
+    }
+
+    .rec-icon { font-size: 2.8rem; margin-bottom: 14px; }
+
+    .rec-title {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      letter-spacing: 1.5px;
+      color: var(--white);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .rec-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* =============================================
+       SECTION 4 — WHAT WE REPRESENT
+    ============================================= */
+    .values-section {
+      padding: 96px 0;
+      background: var(--gray-bg);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .values-left .section-label { color: var(--black); margin-bottom: 32px; }
+
+    .values-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .value-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--white);
+      border-radius: 10px;
+      padding: 14px 18px;
+      border-left: 5px solid var(--orange);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .value-item:hover {
+      transform: translateX(6px);
+      box-shadow: 0 4px 20px rgba(255,107,0,0.15);
+    }
+    .value-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .value-label {
+      font-family: var(--font-head);
+      font-size: 1.3rem;
+      letter-spacing: 1.5px;
+      color: var(--black);
+      text-transform: uppercase;
+    }
+
+    .values-desc {
+      font-size: 1rem;
+      color: #555;
+      font-weight: 600;
+      line-height: 1.7;
+    }
+
+    .quiz-panel {
+      background: var(--orange);
+      border-radius: var(--radius);
+      padding: 48px 36px;
+      color: var(--white);
+      text-align: center;
+      border: 4px solid var(--black);
+      box-shadow: 8px 8px 0 var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+    .quiz-panel::before {
+      content: '?';
+      position: absolute;
+      font-family: var(--font-head);
+      font-size: 16rem;
+      color: rgba(0,0,0,0.08);
+      right: -30px; top: -30px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .quiz-panel .section-label {
+      color: var(--white);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      margin-bottom: 16px;
+    }
+
+    .quiz-panel p {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      opacity: 0.9;
+    }
+
+    .btn-black {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+      font-size: 1.1rem;
+    }
+    .btn-black:hover {
+      background: #333;
+      transform: scale(1.06);
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    }
+
+    /* =============================================
+       SECTION 5 — LATEST ADVENTURES
+    ============================================= */
+    .adventures-section {
+      padding: 96px 0;
+      background: var(--white);
+    }
+
+    .adventures-section .section-label { color: var(--black); }
+
+    .adv-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    .adv-card {
+      border-radius: var(--radius);
+      border: 3px solid #eee;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      background: var(--white);
+    }
+    .adv-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(255,107,0,0.2);
+      border-color: var(--orange);
+    }
+
+    .adv-img {
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+    }
+    .adv-img-1 { background: linear-gradient(135deg, #fff3e8, #ffe0c0); }
+    .adv-img-2 { background: linear-gradient(135deg, #f0e8ff, #d8c0ff); }
+    .adv-img-3 { background: linear-gradient(135deg, #e8f5ed, #c0e8d0); }
+    .adv-img-4 { background: linear-gradient(135deg, #fff3e8, #ffe0c0); }
+    .adv-img-5 { background: linear-gradient(135deg, #e8f5ed, #c0e8d0); }
+
+    .adv-issue-badge {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    .adv-body {
+      padding: 18px;
+    }
+
+    .adv-tag {
+      font-family: var(--font-head);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .adv-title {
+      font-family: var(--font-head);
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+      color: var(--black);
+      line-height: 1.2;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+
+    .adv-btn {
+      font-size: 0.82rem;
+      padding: 8px 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 5px;
+    }
+
+    /* =============================================
+       SECTION 6 — JOIN + FOOTER
+    ============================================= */
+    .join-footer {
+      background: var(--black);
+    }
+
+    .join-band {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .join-left {
+      background: linear-gradient(135deg, #1a0050, #2d0080);
+      padding: 80px 56px;
+      border-right: 4px solid var(--orange);
+    }
+    .join-left .section-label {
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .join-left p {
+      color: rgba(255,255,255,0.7);
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .join-form {
+      display: flex;
+      gap: 0;
+      max-width: 420px;
+    }
+    .join-form input {
+      flex: 1;
+      padding: 14px 18px;
+      border: 3px solid rgba(255,255,255,0.2);
+      border-right: none;
+      border-radius: 8px 0 0 8px;
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+    .join-form input::placeholder { color: rgba(255,255,255,0.4); }
+    .join-form input:focus { border-color: var(--orange); }
+    .join-form .btn-orange {
+      border-radius: 0 8px 8px 0;
+      border-left: none;
+      white-space: nowrap;
+      font-size: 0.95rem;
+      padding: 14px 20px;
+    }
+
+    .join-right {
+      padding: 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .join-right-title {
+      font-family: var(--font-head);
+      font-size: 1.6rem;
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    .join-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .join-perk {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.8);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .join-perk::before {
+      content: '🏀';
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #111;
+      border-top: 4px solid rgba(255,107,0,0.3);
+      padding: 64px 0 32px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand .nav-logo {
+      font-size: 1.8rem;
+      margin-bottom: 14px;
+    }
+    .footer-tagline {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 10px;
+    }
+    .social-btn {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.07);
+      border: 2px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition);
+      color: var(--white);
+    }
+    .social-btn:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+      transform: translateY(-3px);
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-head);
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 8px; }
+    .footer-col ul li a {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.55);
+      transition: color var(--transition);
+    }
+    .footer-col ul li a:hover { color: var(--white); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-bottom p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.35);
+      font-weight: 600;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-legal a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.35);
+      font-weight: 600;
+      transition: color var(--transition);
+    }
+    .footer-legal a:hover { color: var(--orange); }
+
+    /* =============================================
+       QUIZ MODAL
+    ============================================= */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--white);
+      border-radius: 20px;
+      border: 4px solid var(--orange);
+      box-shadow: 12px 12px 0 var(--black);
+      max-width: 520px;
+      width: 100%;
+      padding: 48px 40px;
+      text-align: center;
+      position: relative;
+      animation: popIn 0.3s ease;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #666;
+      line-height: 1;
+      transition: color var(--transition);
+    }
+    .modal-close:hover { color: var(--orange); }
+
+    .modal-emoji { font-size: 4rem; margin-bottom: 12px; }
+    .modal-title {
+      font-family: var(--font-head);
+      font-size: 2.2rem;
+      letter-spacing: 2px;
+      color: var(--black);
+      margin-bottom: 14px;
+    }
+    .modal-body {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .quiz-opt {
+      padding: 14px;
+      border: 3px solid #eee;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: var(--font-head);
+      font-size: 1rem;
+      letter-spacing: 1px;
+      color: var(--black);
+      text-align: center;
+      background: var(--white);
+      transition: border-color var(--transition), background var(--transition), transform var(--transition);
+    }
+    .quiz-opt:hover {
+      border-color: var(--orange);
+      background: rgba(255,107,0,0.06);
+      transform: scale(1.03);
+    }
+    .quiz-opt.selected {
+      border-color: var(--orange);
+      background: var(--orange);
+      color: var(--white);
+    }
+    .quiz-opt span { display: block; font-size: 1.8rem; margin-bottom: 4px; }
+
+    .modal-result {
+      display: none;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(255,107,0,0.1), rgba(107,47,160,0.1));
+      border-radius: 12px;
+      border: 2px solid var(--orange);
+      margin-bottom: 20px;
+    }
+    .modal-result.show { display: block; }
+    .modal-result p {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      color: var(--black);
+      letter-spacing: 1px;
+    }
+
+    /* =============================================
+       SCROLL TO TOP
+    ============================================= */
+    .scroll-top {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      width: 48px; height: 48px;
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 500;
+      box-shadow: 0 4px 16px rgba(255,107,0,0.4);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .scroll-top.visible { display: flex; }
+    .scroll-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(255,107,0,0.5);
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 1100px) {
+      .cards-row,
+      .rec-grid,
+      .adv-row {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-art { order: -1; }
+      .hero-art-box { max-width: 320px; margin: 0 auto; }
+      .hero-buttons { justify-content: center; }
+      .hero-badges { justify-content: center; }
+
+      .values-grid { grid-template-columns: 1fr; }
+
+      .join-band { grid-template-columns: 1fr; }
+      .join-left { border-right: none; border-bottom: 4px solid var(--orange); }
+      .join-left, .join-right { padding: 56px 36px; }
+
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 700px) {
+      .cards-row,
+      .rec-grid,
+      .adv-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .join-form { flex-direction: column; }
+      .join-form input { border-right: 3px solid rgba(255,255,255,0.2); border-bottom: none; border-radius: 8px 8px 0 0; }
+      .join-form .btn-orange { border-radius: 0 0 8px 8px; border-left: 3px solid var(--orange); text-align: center; justify-content: center; }
+
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+
+      .quiz-options { grid-template-columns: 1fr; }
+      .modal-box { padding: 36px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .cards-row,
+      .rec-grid,
+      .adv-row {
+        grid-template-columns: 1fr;
+      }
+      .hero-art-box { max-width: 260px; }
+    }
+
+    /* =============================================
+       COMIC HALFTONE ACCENT (decorative)
+    ============================================= */
+    .halftone-accent {
+      background-image: radial-gradient(circle, rgba(255,107,0,0.15) 1px, transparent 1px);
+      background-size: 12px 12px;
+    }
+
+    /* section number decorations */
+    .section-num {
+      font-family: var(--font-head);
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      color: var(--orange);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      justify-content: center;
+    }
+    .section-num::before,
+    .section-num::after {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 2px;
+      background: var(--orange);
+      border-radius: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="#home" class="nav-logo" aria-label="HOOP SQUAD Home">
+      <span class="hoop">HOOP</span>&nbsp;<span>SQUAD</span>
+      <span class="ball" aria-hidden="true">🏀</span>
+    </a>
+
+    <div class="nav-links" role="list">
+      <a href="#home"       role="listitem">Home</a>
+      <a href="#team"       role="listitem">Meet The Team</a>
+      <a href="#adventures" role="listitem">Adventures</a>
+      <a href="#rec"        role="listitem">Rec Center</a>
+      <a href="#fans"       role="listitem">Fans</a>
+      <a href="#shop"       role="listitem">Shop</a>
+      <a href="#join"       class="btn btn-orange nav-cta" role="listitem">JOIN THE SQUAD</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" role="menu">
+    <a href="#home"       role="menuitem">Home</a>
+    <a href="#team"       role="menuitem">Meet The Team</a>
+    <a href="#adventures" role="menuitem">Adventures</a>
+    <a href="#rec"        role="menuitem">Rec Center</a>
+    <a href="#fans"       role="menuitem">Fans</a>
+    <a href="#shop"       role="menuitem">Shop</a>
+    <a href="#join"       class="btn btn-orange" role="menuitem">JOIN THE SQUAD 🏀</a>
+  </div>
+
+  <main>
+
+    <!-- ============================================================
+         SECTION 1 — HERO
+    ============================================================ -->
+    <section class="hero" id="home" aria-label="Hero section">
+      <div class="container">
+        <div class="hero-inner">
+
+          <!-- left: copy -->
+          <div class="hero-copy">
+            <p class="hero-eyebrow">SEASON 1 IS HERE — ARE YOU READY?</p>
+            <h1 class="hero-headline">
+              EVERYBODY<br>
+              <span class="accent">BELONGS</span><br>
+              IN THE SQUAD.
+            </h1>
+            <p class="hero-sub">
+              Join Freaky, G, Zo, Zach, and Ace — five kids who
+              prove that basketball is about more than buckets.
+              It's about heart, hustle, and showing up for your team.
+            </p>
+            <div class="hero-buttons">
+              <a href="#join"  class="btn btn-orange">JOIN THE SQUAD 🏀</a>
+              <a href="#team"  class="btn btn-outline-white">MEET THE TEAM</a>
+            </div>
+            <div class="hero-badges">
+              <span class="badge badge-orange">Ages 5–9</span>
+              <span class="badge badge-purple">Team First</span>
+              <span class="badge badge-green">No Ball Hogs</span>
+            </div>
+          </div>
+
+          <!-- right: art placeholder -->
+          <div class="hero-art">
+            <div class="hero-art-box">
+              <div class="hero-art-emoji" aria-hidden="true">🏀</div>
+              <p class="hero-art-label">Character Art Coming Soon</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2 — MEET THE STARTING FIVE
+    ============================================================ -->
+    <section class="team-section" id="team" aria-labelledby="team-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-num">THE CREW</p>
+          <h2 class="section-label" id="team-heading">MEET THE STARTING FIVE</h2>
+          <p class="section-sub">Five players. One squad. Zero excuses.</p>
+          <div class="section-divider divider-orange"></div>
+        </div>
+
+        <div class="cards-row" role="list">
+
+          <!-- FREAKY -->
+          <article class="char-card orange" role="listitem" aria-label="Freaky — The Hustler">
+            <div class="char-img" aria-hidden="true">💪</div>
+            <div class="char-body">
+              <h3 class="char-name">FREAKY</h3>
+              <p class="char-role">THE HUSTLER</p>
+              <ul class="char-traits" aria-label="Traits">
+                <li>Paint Beast</li>
+                <li>Rebounds Everything</li>
+                <li>Defensive Monster</li>
+                <li>Never Gets Tired</li>
+              </ul>
+              <a href="#" class="btn btn-orange char-btn">MEET FREAKY</a>
+            </div>
+          </article>
+
+          <!-- G -->
+          <article class="char-card purple" role="listitem" aria-label="G — The Risk-Taker">
+            <div class="char-img" aria-hidden="true">⚡</div>
+            <div class="char-body">
+              <h3 class="char-name">G</h3>
+              <p class="char-role">THE RISK-TAKER</p>
+              <ul class="char-traits" aria-label="Traits">
+                <li>Point Guard</li>
+                <li>Flashy Handles</li>
+                <li>Deep Threes</li>
+                <li>Sometimes Turns It Over</li>
+              </ul>
+              <a href="#" class="btn btn-purple char-btn">MEET G</a>
+            </div>
+          </article>
+
+          <!-- ZO -->
+          <article class="char-card purple" role="listitem" aria-label="Zo — The Athlete">
+            <div class="char-img" aria-hidden="true">🦅</div>
+            <div class="char-body">
+              <h3 class="char-name">ZO</h3>
+              <p class="char-role">THE ATHLETE</p>
+              <ul class="char-traits" aria-label="Traits">
+                <li>Long Arms &amp; Long Legs</li>
+                <li>One of the Tallest</li>
+                <li>Defensive Disruptor</li>
+                <li>Fast in Transition</li>
+              </ul>
+              <a href="#" class="btn btn-purple char-btn">MEET ZO</a>
+            </div>
+          </article>
+
+          <!-- ZACH -->
+          <article class="char-card orange" role="listitem" aria-label="Zach — The Goofball Defender">
+            <div class="char-img" aria-hidden="true">😄</div>
+            <div class="char-body">
+              <h3 class="char-name">ZACH</h3>
+              <p class="char-role">THE GOOFBALL DEFENDER</p>
+              <ul class="char-traits" aria-label="Traits">
+                <li>Funny &amp; Weird</li>
+                <li>Great Rebounder</li>
+                <li>Scrappy Defender</li>
+                <li>Always in the Right Place</li>
+              </ul>
+              <a href="#" class="btn btn-orange char-btn">MEET ZACH</a>
+            </div>
+          </article>
+
+          <!-- ACE -->
+          <article class="char-card green" role="listitem" aria-label="Ace — The Glue">
+            <div class="char-img" aria-hidden="true">⭐</div>
+            <div class="char-body">
+              <h3 class="char-name">ACE</h3>
+              <p class="char-role">THE GLUE</p>
+              <ul class="char-traits" aria-label="Traits">
+                <li>Team-First</li>
+                <li>Smart Passer</li>
+                <li>Encourages Everyone</li>
+                <li>Keeps the Squad Together</li>
+              </ul>
+              <a href="#" class="btn btn-green char-btn">MEET ACE</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3 — REC CENTER
+    ============================================================ -->
+    <section class="rec-section" id="rec" aria-labelledby="rec-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-num" style="color: rgba(255,107,0,0.8);">YOUR SPOT</p>
+          <h2 class="section-label" id="rec-heading">WELCOME TO THE<br><span style="color: var(--orange);">REC CENTER</span></h2>
+          <p class="section-sub">Pick your zone and dive in. The squad is waiting.</p>
+          <div class="section-divider divider-orange"></div>
+        </div>
+
+        <div class="rec-grid" role="list">
+
+          <div class="rec-card" role="listitem" tabindex="0" aria-label="The Bleachers — Team Stories and Highlights">
+            <div class="rec-icon" aria-hidden="true">👥</div>
+            <h3 class="rec-title">THE BLEACHERS</h3>
+            <p class="rec-desc">Team Stories &amp; Highlights</p>
+          </div>
+
+          <div class="rec-card" role="listitem" tabindex="0" aria-label="The Court — Games and Practice">
+            <div class="rec-icon" aria-hidden="true">🏀</div>
+            <h3 class="rec-title">THE COURT</h3>
+            <p class="rec-desc">Games &amp; Practice</p>
+          </div>
+
+          <div class="rec-card" role="listitem" tabindex="0" aria-label="The Locker Room — Behind the Scenes">
+            <div class="rec-icon" aria-hidden="true">🔒</div>
+            <h3 class="rec-title">THE LOCKER ROOM</h3>
+            <p class="rec-desc">Behind the Scenes</p>
+          </div>
+
+          <div class="rec-card" role="listitem" tabindex="0" aria-label="The Snack Bar — Fun and Games">
+            <div class="rec-icon" aria-hidden="true">🥤</div>
+            <h3 class="rec-title">THE SNACK BAR</h3>
+            <p class="rec-desc">Fun &amp; Games</p>
+          </div>
+
+          <div class="rec-card" role="listitem" tabindex="0" aria-label="The Trophy Case — Achievements">
+            <div class="rec-icon" aria-hidden="true">🏆</div>
+            <h3 class="rec-title">THE TROPHY CASE</h3>
+            <p class="rec-desc">Achievements</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4 — WHAT WE REPRESENT
+    ============================================================ -->
+    <section class="values-section" id="fans" aria-labelledby="values-heading">
+      <div class="container">
+        <div class="values-grid">
+
+          <!-- left: values -->
+          <div class="values-left">
+            <p class="section-num" style="justify-content: flex-start;">THE CODE</p>
+            <h2 class="section-label" id="values-heading">WHAT WE<br>REPRESENT</h2>
+            <div style="height: 4px; width: 60px; background: var(--orange); border-radius: 2px; margin: 16px 0 28px;"></div>
+
+            <div class="values-list">
+              <div class="value-item">
+                <span class="value-icon" aria-hidden="true">🏀</span>
+                <span class="value-label">Teamwork</span>
+              </div>
+              <div class="value-item" style="border-left-color: var(--purple);">
+                <span class="value-icon" aria-hidden="true">❤️</span>
+                <span class="value-label">Respect</span>
+              </div>
+              <div class="value-item">
+                <span class="value-icon" aria-hidden="true">💪</span>
+                <span class="value-label">Hard Work</span>
+              </div>
+              <div class="value-item" style="border-left-color: var(--green);">
+                <span class="value-icon" aria-hidden="true">⭐</span>
+                <span class="value-label">Confidence</span>
+              </div>
+              <div class="value-item">
+                <span class="value-icon" aria-hidden="true">⚡</span>
+                <span class="value-label">Fun!</span>
+              </div>
+            </div>
+
+            <p class="values-desc">
+              Hoop Squad isn't just about basketball — it's about
+              becoming the best version of yourself. Every story
+              we tell teaches something real: how to bounce back,
+              how to lift others up, and why showing up matters.
+            </p>
+          </div>
+
+          <!-- right: quiz CTA -->
+          <div class="quiz-panel" role="complementary" aria-label="Character quiz">
+            <h3 class="section-label">ARE YOU<br>HOOP SQUAD?</h3>
+            <p>
+              Answer five quick questions and find out which
+              Starting Five player matches your style.
+              Are you a Hustler, a Risk-Taker, an Athlete,
+              a Goofball, or The Glue?
+            </p>
+            <button class="btn btn-black" id="quiz-open" aria-haspopup="dialog">
+              TAKE THE QUIZ →
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 5 — LATEST ADVENTURES
+    ============================================================ -->
+    <section class="adventures-section" id="adventures" aria-labelledby="adv-heading">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-num">ON THE BOOKSHELF</p>
+          <h2 class="section-label" id="adv-heading">LATEST ADVENTURES</h2>
+          <p class="section-sub">Five stories. Five lessons. One squad.</p>
+          <div class="section-divider divider-orange"></div>
+        </div>
+
+        <div class="adv-row" role="list">
+
+          <article class="adv-card" role="listitem">
+            <div class="adv-img adv-img-1" aria-hidden="true">
+              <span style="font-size:3rem;">💪</span>
+              <span class="adv-issue-badge">ISSUE #1</span>
+            </div>
+            <div class="adv-body">
+              <p class="adv-tag">FREAKY</p>
+              <h3 class="adv-title">FREAKY LEARNS ABOUT LEADERSHIP</h3>
+              <a href="#" class="btn btn-orange adv-btn">READ NOW →</a>
+            </div>
+          </article>
+
+          <article class="adv-card" role="listitem">
+            <div class="adv-img adv-img-2" aria-hidden="true">
+              <span style="font-size:3rem;">⚡</span>
+              <span class="adv-issue-badge">ISSUE #2</span>
+            </div>
+            <div class="adv-body">
+              <p class="adv-tag">G</p>
+              <h3 class="adv-title">G TAKES THE BIG SHOT</h3>
+              <a href="#" class="btn btn-purple adv-btn">READ NOW →</a>
+            </div>
+          </article>
+
+          <article class="adv-card" role="listitem">
+            <div class="adv-img adv-img-3" aria-hidden="true">
+              <span style="font-size:3rem;">🦅</span>
+              <span class="adv-issue-badge">ISSUE #3</span>
+            </div>
+            <div class="adv-body">
+              <p class="adv-tag">ZO</p>
+              <h3 class="adv-title">ZO LOCKS DOWN THE FASTEST PLAYER</h3>
+              <a href="#" class="btn btn-purple adv-btn">READ NOW →</a>
+            </div>
+          </article>
+
+          <article class="adv-card" role="listitem">
+            <div class="adv-img adv-img-4" aria-hidden="true">
+              <span style="font-size:3rem;">😄</span>
+              <span class="adv-issue-badge">ISSUE #4</span>
+            </div>
+            <div class="adv-body">
+              <p class="adv-tag">ZACH</p>
+              <h3 class="adv-title">ZACH SAVES THE GAME</h3>
+              <a href="#" class="btn btn-orange adv-btn">READ NOW →</a>
+            </div>
+          </article>
+
+          <article class="adv-card" role="listitem">
+            <div class="adv-img adv-img-5" aria-hidden="true">
+              <span style="font-size:3rem;">⭐</span>
+              <span class="adv-issue-badge">ISSUE #5</span>
+            </div>
+            <div class="adv-body">
+              <p class="adv-tag">ACE</p>
+              <h3 class="adv-title">ACE BRINGS EVERYONE TOGETHER</h3>
+              <a href="#" class="btn btn-green adv-btn">READ NOW →</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 6 — JOIN THE MOVEMENT + FOOTER
+    ============================================================ -->
+    <div class="join-footer" id="join">
+
+      <!-- join band -->
+      <div class="join-band">
+        <div class="join-left">
+          <p class="section-num" style="justify-content: flex-start;">DON'T MISS OUT</p>
+          <h2 class="section-label" style="color: var(--white); margin-bottom: 14px;">JOIN THE<br><span style="color: var(--orange);">MOVEMENT</span></h2>
+          <p>Get first access to new adventures, squad news,
+             printables, and exclusive fan content. No spam —
+             just pure hoop squad energy.</p>
+          <form class="join-form" onsubmit="handleJoin(event)" aria-label="Email signup form">
+            <input
+              type="email"
+              placeholder="Your email address..."
+              aria-label="Email address"
+              required
+              id="join-email"
+            />
+            <button type="submit" class="btn btn-orange">JOIN THE SQUAD 🏀</button>
+          </form>
+        </div>
+
+        <div class="join-right" id="shop">
+          <p class="join-right-title">SQUAD PERKS</p>
+          <div class="join-perks">
+            <div class="join-perk">Early access to new story drops</div>
+            <div class="join-perk">Free printable character cards</div>
+            <div class="join-perk">Exclusive fan art contests</div>
+            <div class="join-perk">Hoop Squad newsletter</div>
+            <div class="join-perk">Discount codes for the shop</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="footer" aria-label="Site footer">
+        <div class="container">
+          <div class="footer-top">
+
+            <div class="footer-brand">
+              <div class="nav-logo" aria-label="Hoop Squad">
+                <span class="hoop">HOOP</span>&nbsp;<span>SQUAD</span>
+                <span class="ball" aria-hidden="true">🏀</span>
+              </div>
+              <p class="footer-tagline">
+                WE PLAY. WE LEARN.<br>
+                WE GROW. TOGETHER.
+              </p>
+              <div class="social-row" role="list" aria-label="Social media links">
+                <a href="#" class="social-btn" role="listitem" aria-label="Instagram">
+                  <!-- instagram icon -->
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                </a>
+                <a href="#" class="social-btn" role="listitem" aria-label="TikTok">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.62a8.21 8.21 0 0 0 4.82 1.56V6.74a4.85 4.85 0 0 1-1.05-.05z"/></svg>
+                </a>
+                <a href="#" class="social-btn" role="listitem" aria-label="YouTube">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.49 3.5 12 3.5 12 3.5s-7.49 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.09 0 12 0 12s0 3.91.5 5.81a3.02 3.02 0 0 0 2.12 2.14C4.51 20.5 12 20.5 12 20.5s7.49 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.91 24 12 24 12s0-3.91-.5-5.81zM9.75 15.5V8.5l6.25 3.5-6.25 3.5z"/></svg>
+                </a>
+                <a href="#" class="social-btn" role="listitem" aria-label="X (formerly Twitter)">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="footer-col">
+              <h4>Explore</h4>
+              <ul>
+                <li><a href="#team">Meet The Team</a></li>
+                <li><a href="#adventures">Adventures</a></li>
+                <li><a href="#rec">Rec Center</a></li>
+                <li><a href="#fans">Fans</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4>Connect</h4>
+              <ul>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Fan Art</a></li>
+                <li><a href="#">News</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h4>Support</h4>
+              <ul>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col" id="shop-links">
+              <h4>Shop</h4>
+              <ul>
+                <li><a href="#">Books</a></li>
+                <li><a href="#">Merch</a></li>
+                <li><a href="#">Gear</a></li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="footer-bottom">
+            <p>&copy; 2026 HOOP SQUAD. All rights reserved.</p>
+            <div class="footer-legal">
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Use</a>
+              <a href="#">Cookie Settings</a>
+            </div>
+          </div>
+
+        </div>
+      </footer>
+    </div>
+
+  </main>
+
+  <!-- ============================================================
+       QUIZ MODAL
+  ============================================================ -->
+  <div class="modal-overlay" id="quiz-modal" role="dialog" aria-modal="true" aria-labelledby="quiz-modal-title">
+    <div class="modal-box">
+      <button class="modal-close" id="quiz-close" aria-label="Close quiz">&times;</button>
+
+      <div id="quiz-step-1">
+        <div class="modal-emoji" aria-hidden="true">🏀</div>
+        <h2 class="modal-title" id="quiz-modal-title">WHICH PLAYER ARE YOU?</h2>
+        <p class="modal-body">You're down by 2 with 10 seconds left. What do you do?</p>
+        <div class="quiz-options" role="group" aria-label="Quiz options">
+          <button class="quiz-opt" onclick="selectOpt(this,'FREAKY')">
+            <span aria-hidden="true">💪</span>
+            Box out and grab the offensive rebound
+          </button>
+          <button class="quiz-opt" onclick="selectOpt(this,'G')">
+            <span aria-hidden="true">⚡</span>
+            Iso up and pull the deep three
+          </button>
+          <button class="quiz-opt" onclick="selectOpt(this,'ZO')">
+            <span aria-hidden="true">🦅</span>
+            Get into transition and dunk on 'em
+          </button>
+          <button class="quiz-opt" onclick="selectOpt(this,'ZACH')">
+            <span aria-hidden="true">😄</span>
+            Dive on the floor for the loose ball
+          </button>
+          <button class="quiz-opt" onclick="selectOpt(this,'ACE')" style="grid-column: 1 / -1;">
+            <span aria-hidden="true">⭐</span>
+            Find the open teammate and dish the perfect pass
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-result" id="quiz-result" aria-live="polite">
+        <p id="quiz-result-text"></p>
+      </div>
+
+      <button class="btn btn-orange" id="quiz-reset" style="display:none; width:100%; justify-content:center;" onclick="resetQuiz()">
+        PLAY AGAIN
+      </button>
+    </div>
+  </div>
+
+  <!-- scroll to top -->
+  <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">↑</button>
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    // ── HAMBURGER MENU ──────────────────────────────────────────
+    const hamburger   = document.getElementById('hamburger');
+    const mobileMenu  = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ── SMOOTH SCROLL ───────────────────────────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const navHeight = 72;
+          const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ── SCROLL-TO-TOP BUTTON ─────────────────────────────────────
+    const scrollTopBtn = document.getElementById('scroll-top');
+
+    window.addEventListener('scroll', () => {
+      scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ── QUIZ MODAL ───────────────────────────────────────────────
+    const quizModal  = document.getElementById('quiz-modal');
+    const quizOpen   = document.getElementById('quiz-open');
+    const quizClose  = document.getElementById('quiz-close');
+
+    quizOpen.addEventListener('click', () => {
+      quizModal.classList.add('open');
+      quizClose.focus();
+    });
+
+    quizClose.addEventListener('click', () => {
+      quizModal.classList.remove('open');
+      quizOpen.focus();
+    });
+
+    quizModal.addEventListener('click', (e) => {
+      if (e.target === quizModal) {
+        quizModal.classList.remove('open');
+        quizOpen.focus();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && quizModal.classList.contains('open')) {
+        quizModal.classList.remove('open');
+        quizOpen.focus();
+      }
+    });
+
+    const playerData = {
+      FREAKY: { label: 'YOU ARE FREAKY — THE HUSTLER! 💪', desc: 'You go hard every possession. No ball is ever out of reach when you\'re on the floor.' },
+      G:      { label: 'YOU ARE G — THE RISK-TAKER! ⚡',   desc: 'Bold, fearless, and flashy. You live for the big moment — even when you brick it.' },
+      ZO:     { label: 'YOU ARE ZO — THE ATHLETE! 🦅',     desc: 'Pure athleticism and length. When you lock in on defense, nobody gets past you.' },
+      ZACH:   { label: 'YOU ARE ZACH — THE GOOFBALL! 😄',  desc: 'Scrappy, weird, and always in the right spot. The squad wouldn\'t be the same without your energy.' },
+      ACE:    { label: 'YOU ARE ACE — THE GLUE! ⭐',       desc: 'The best teammate in the building. You make everyone around you better.' },
+    };
+
+    function selectOpt(el, player) {
+      // visual selection
+      document.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+
+      // show result
+      setTimeout(() => {
+        const result = playerData[player];
+        const resultBox  = document.getElementById('quiz-result');
+        const resultText = document.getElementById('quiz-result-text');
+        resultText.textContent = result.label + ' ' + result.desc;
+        resultBox.classList.add('show');
+        document.getElementById('quiz-reset').style.display = 'flex';
+      }, 400);
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('selected'));
+      document.getElementById('quiz-result').classList.remove('show');
+      document.getElementById('quiz-reset').style.display = 'none';
+    }
+
+    // ── EMAIL JOIN FORM ──────────────────────────────────────────
+    function handleJoin(e) {
+      e.preventDefault();
+      const emailInput = document.getElementById('join-email');
+      const btn = e.target.querySelector('button[type="submit"]');
+      const original = btn.textContent;
+
+      btn.textContent = 'YOU\'RE IN! 🎉';
+      btn.style.background = 'var(--green)';
+      emailInput.value = '';
+
+      setTimeout(() => {
+        btn.textContent = original;
+        btn.style.background = '';
+      }, 3000);
+    }
+
+    // ── REC CENTER CARDS — keyboard enter ───────────────────────
+    document.querySelectorAll('.rec-card').forEach(card => {
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+
+    // ── NAV ACTIVE STATE ON SCROLL ───────────────────────────────
+    const sections = document.querySelectorAll('section[id], div[id="join"]');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.style.color = link.getAttribute('href') === '#' + entry.target.id
+              ? 'var(--orange)'
+              : '';
+          });
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+
+</body>
+</html>
