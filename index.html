@@ -985,11 +985,11 @@
     }
 
     .join-right {
-      padding: 80px 56px;
+      padding: 56px 40px 40px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      padding-top: 56px;
+      overflow: hidden;
     }
     .join-right-title {
       font-family: var(--font-head);
@@ -1741,16 +1741,20 @@
         </div>
 
         <div class="join-right" id="shop">
-          <p class="join-right-title" style="text-align:center;">SQUAD PERKS</p>
-          <div style="display:flex;align-items:center;gap:24px;">
-            <div class="join-perks" style="flex:1;">
+          <!-- title row — matches height of DON'T MISS OUT on left -->
+          <p class="join-right-title" style="margin-bottom:28px;">SQUAD PERKS</p>
+
+          <!-- content row: list left, big image right -->
+          <div style="display:flex;align-items:flex-start;gap:0;flex:1;">
+            <div class="join-perks" style="flex:0 0 auto;min-width:220px;">
               <div class="join-perk">Early access to new story drops</div>
               <div class="join-perk">Free printable character cards</div>
               <div class="join-perk">Exclusive fan art contests</div>
               <div class="join-perk">Hoop Squad newsletter</div>
               <div class="join-perk">Discount codes for the shop</div>
             </div>
-            <img src="images/squadperks.png" alt="Squad Perks" style="width:300px;flex-shrink:0;display:block;border-radius:0;box-shadow:none;">
+            <img src="images/squadperks.png" alt="Squad Perks"
+              style="flex:1;width:0;min-width:0;max-height:320px;object-fit:contain;object-position:left center;display:block;border:none;box-shadow:none;background:none;">
           </div>
         </div>
       </div>
