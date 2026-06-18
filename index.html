@@ -658,6 +658,14 @@
       background: var(--gray-bg);
     }
 
+    .values-heading-centered {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .values-heading-centered .section-num { justify-content: center; }
+    .values-heading-centered .section-label { color: var(--black); }
+    .values-heading-centered hr { width: 60px; height: 4px; background: var(--orange); border: none; border-radius: 2px; margin: 16px auto 0; }
+
     .values-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1487,14 +1495,18 @@
     ============================================================ -->
     <section class="values-section" id="fans" aria-labelledby="values-heading">
       <div class="container">
+
+        <!-- centered heading -->
+        <div class="values-heading-centered">
+          <p class="section-num">THE CODE</p>
+          <h2 class="section-label" id="values-heading">WHAT WE REPRESENT</h2>
+          <hr>
+        </div>
+
         <div class="values-grid">
 
           <!-- left: values -->
           <div class="values-left">
-            <p class="section-num" style="justify-content: flex-start;">THE CODE</p>
-            <h2 class="section-label" id="values-heading">WHAT WE<br>REPRESENT</h2>
-            <div style="height: 4px; width: 60px; background: var(--orange); border-radius: 2px; margin: 16px 0 28px;"></div>
-
             <div class="values-list">
               <div class="value-item">
                 <span class="value-icon" aria-hidden="true">🏀</span>
