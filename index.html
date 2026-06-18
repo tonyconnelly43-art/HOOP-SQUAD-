@@ -576,23 +576,30 @@
     ============================================= */
     .rec-section {
       padding: 96px 0;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(255,255,255,0.02) 0px,
-          rgba(255,255,255,0.02) 1px,
-          transparent 1px,
-          transparent 50px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          rgba(255,255,255,0.02) 0px,
-          rgba(255,255,255,0.02) 1px,
-          transparent 1px,
-          transparent 50px
-        ),
-        linear-gradient(180deg, #141428 0%, #1a1a2e 100%);
       position: relative;
+      overflow: hidden;
+    }
+
+    .rec-section-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+    }
+
+    .rec-section-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 10, 30, 0.78);
+      z-index: 1;
+    }
+
+    .rec-section > .container {
+      position: relative;
+      z-index: 2;
     }
 
     /* center circle */
@@ -1455,6 +1462,8 @@
          SECTION 3 — REC CENTER
     ============================================================ -->
     <section class="rec-section" id="rec" aria-labelledby="rec-heading">
+      <img src="images/therec.png" alt="" class="rec-section-bg" aria-hidden="true">
+      <div class="rec-section-overlay"></div>
       <div class="container">
         <div class="section-header">
           <p class="section-num" style="color: rgba(255,107,0,0.8);">YOUR SPOT</p>
