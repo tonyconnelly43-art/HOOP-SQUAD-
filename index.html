@@ -715,6 +715,80 @@
     }
 
     /* value popup */
+    /* ── PLAYER POPUP ── */
+    .player-popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 1001;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .player-popup-overlay.open { display: flex; }
+    .player-popup {
+      background: var(--white);
+      border-radius: 20px;
+      border-top: 8px solid var(--orange);
+      max-width: 700px;
+      width: 100%;
+      position: relative;
+      animation: popIn 0.25s ease;
+      overflow: hidden;
+    }
+    .player-popup-inner {
+      display: flex;
+      align-items: stretch;
+    }
+    .player-popup-img {
+      width: 220px;
+      min-height: 300px;
+      object-fit: contain;
+      object-position: bottom center;
+      background: #f5f5f5;
+      flex-shrink: 0;
+    }
+    .player-popup-content {
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .player-popup-role {
+      font-family: var(--font-head);
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      margin-bottom: 6px;
+    }
+    .player-popup-name {
+      font-family: var(--font-head);
+      font-size: 2.4rem;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+    .player-popup-bio {
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.75;
+    }
+    .player-popup-close {
+      position: absolute;
+      top: 14px; right: 18px;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #aaa;
+      z-index: 2;
+    }
+    .player-popup-close:hover { color: var(--orange); }
+    @media (max-width: 600px) {
+      .player-popup-inner { flex-direction: column; }
+      .player-popup-img { width: 100%; min-height: 200px; }
+    }
+
     .value-popup-overlay {
       display: none;
       position: fixed;
@@ -1453,7 +1527,7 @@
                 <li>Defensive Monster</li>
                 <li>Never Gets Tired</li>
               </ul>
-              <a href="#" class="btn btn-orange char-btn">MEET FREAKY</a>
+              <button class="btn btn-orange char-btn" onclick="openPlayer('freaky')">MEET FREAKY</button>
             </div>
           </article>
 
@@ -1471,7 +1545,7 @@
                 <li>Deep Threes</li>
                 <li>Sometimes Turns It Over</li>
               </ul>
-              <a href="#" class="btn btn-purple char-btn">MEET G</a>
+              <button class="btn btn-purple char-btn" onclick="openPlayer('g')">MEET G</button>
             </div>
           </article>
 
@@ -1489,7 +1563,7 @@
                 <li>Defensive Disruptor</li>
                 <li>Fast in Transition</li>
               </ul>
-              <a href="#" class="btn btn-orange char-btn">MEET ZO</a>
+              <button class="btn btn-orange char-btn" onclick="openPlayer('zo')">MEET ZO</button>
             </div>
           </article>
 
@@ -1507,7 +1581,7 @@
                 <li>Scrappy Defender</li>
                 <li>Always in the Right Place</li>
               </ul>
-              <a href="#" class="btn btn-purple char-btn">MEET ZACH</a>
+              <button class="btn btn-purple char-btn" onclick="openPlayer('zach')">MEET ZACH</button>
             </div>
           </article>
 
@@ -1525,7 +1599,7 @@
                 <li>Encourages Everyone</li>
                 <li>Keeps the Squad Together</li>
               </ul>
-              <a href="#" class="btn btn-green char-btn">MEET ACE</a>
+              <button class="btn btn-green char-btn" onclick="openPlayer('ace')">MEET ACE</button>
             </div>
           </article>
 
@@ -2055,6 +2129,82 @@
 
     sections.forEach(s => observer.observe(s));
   </script>
+
+    <!-- PLAYER POPUP -->
+    <div class="player-popup-overlay" id="playerOverlay" role="dialog" aria-modal="true" aria-labelledby="playerPopupName">
+      <div class="player-popup" id="playerPopupBox">
+        <button class="player-popup-close" id="playerClose" aria-label="Close">✕</button>
+        <div class="player-popup-inner">
+          <img id="playerPopupImg" src="" alt="" class="player-popup-img">
+          <div class="player-popup-content">
+            <p class="player-popup-role" id="playerPopupRole"></p>
+            <h3 class="player-popup-name" id="playerPopupName"></h3>
+            <p class="player-popup-bio" id="playerPopupBio"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    const playerProfiles = {
+      freaky: {
+        name: 'FREAKY',
+        role: 'THE HUSTLER — #34',
+        color: '#FF6B00',
+        img: 'images/freaky.png',
+        bio: 'Freaky grew up playing pickup ball on the cracked courts of Riverside Park, where the only rule was don\'t back down. He never had the flashiest handles or the prettiest jumper, but nobody — and we mean nobody — outworks him. Freaky plays like every possession is his last. He lives in the paint, boxes out players twice his size, and turns hustle into an art form. When the squad needs a big stop or a clutch rebound, Freaky is already there.'
+      },
+      g: {
+        name: 'G',
+        role: 'THE RISK-TAKER — #1',
+        color: '#6B2FA0',
+        img: 'images/g.png',
+        bio: 'G learned to play basketball by watching highlight reels and trying every single move in the driveway until midnight. He\'s from the west side of town and has been breaking ankles since the third grade. G plays fast, plays fearless, and sometimes plays reckless — but that\'s what makes him electric. When he\'s locked in, he\'s unstoppable. When he\'s not, the ball might end up in the bleachers. Either way, the crowd is always watching.'
+      },
+      zo: {
+        name: 'ZO',
+        role: 'THE ATHLETE — #22',
+        color: '#FF6B00',
+        img: 'images/zo.png',
+        bio: 'Zo moved to the neighborhood two summers ago and showed up to tryouts not saying a word — just laced up and got to work. With arms that seem to stretch from one end of the lane to the other, she changes the game on both ends of the floor. Zo is one of the tallest on the squad and uses every inch of it. She runs the floor like a sprinter, rotates on defense like a veteran, and makes the other team rethink every entry pass they throw.'
+      },
+      zach: {
+        name: 'ZACH',
+        role: 'THE GOOFBALL DEFENDER — #15',
+        color: '#6B2FA0',
+        img: 'images/zach.png',
+        bio: 'Nobody really knows how Zach always ends up in the right spot. He trips over his own feet in warmups, tells jokes during timeouts, and somehow still comes up with the biggest plays of the game. Zach is from the suburbs but plays with more heart than anyone on the court. His energy is contagious, his defense is scrappy, and his teammates feed off his goofball confidence. Don\'t sleep on Zach — he will absolutely surprise you.'
+      },
+      ace: {
+        name: 'ACE',
+        role: 'THE GLUE — #11',
+        color: '#2D8A4E',
+        img: 'images/ace.png',
+        bio: 'Ace is the kid every coach dreams about. Quiet, smart, and always thinking two plays ahead. He grew up in a family of coaches and learned early that making your teammates better is the highest form of the game. Ace doesn\'t need the spotlight — he just needs the ball in the right hands at the right time. When the squad is falling apart, Ace is the one who holds it together with a calm voice, a perfect pass, and a reminder that they\'ve been here before.'
+      }
+    };
+
+    const playerOverlay = document.getElementById('playerOverlay');
+
+    function openPlayer(key) {
+      const p = playerProfiles[key];
+      if (!p) return;
+      document.getElementById('playerPopupImg').src = p.img;
+      document.getElementById('playerPopupImg').alt = p.name;
+      document.getElementById('playerPopupRole').textContent = p.role;
+      document.getElementById('playerPopupRole').style.color = p.color;
+      document.getElementById('playerPopupName').textContent = p.name;
+      document.getElementById('playerPopupName').style.color = p.color;
+      document.getElementById('playerPopupBio').textContent = p.bio;
+      document.getElementById('playerPopupBox').style.borderTopColor = p.color;
+      playerOverlay.classList.add('open');
+      document.getElementById('playerClose').focus();
+    }
+
+    document.getElementById('playerClose').addEventListener('click', () => playerOverlay.classList.remove('open'));
+    playerOverlay.addEventListener('click', e => { if (e.target === playerOverlay) playerOverlay.classList.remove('open'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') playerOverlay.classList.remove('open'); });
+    </script>
 
     <!-- VALUE POPUP -->
     <div class="value-popup-overlay" id="valueOverlay" role="dialog" aria-modal="true" aria-labelledby="valuePopupTitle">
