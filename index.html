@@ -715,6 +715,21 @@
     }
 
     /* value popup */
+    /* ── BOUNCING BASKETBALL ── */
+    #scroll-ball {
+      position: fixed;
+      bottom: 0;
+      left: -60px;
+      width: 44px;
+      height: 44px;
+      font-size: 38px;
+      line-height: 1;
+      z-index: 999;
+      pointer-events: none;
+      will-change: transform, left, bottom;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+    }
+
     /* ── PLAYER POPUP ── */
     .player-popup-overlay {
       display: none;
@@ -2130,6 +2145,9 @@
     sections.forEach(s => observer.observe(s));
   </script>
 
+    <!-- BOUNCING BASKETBALL -->
+    <div id="scroll-ball" aria-hidden="true">🏀</div>
+
     <!-- PLAYER POPUP -->
     <div class="player-popup-overlay" id="playerOverlay" role="dialog" aria-modal="true" aria-labelledby="playerPopupName">
       <div class="player-popup" id="playerPopupBox">
@@ -2204,6 +2222,37 @@
     document.getElementById('playerClose').addEventListener('click', () => playerOverlay.classList.remove('open'));
     playerOverlay.addEventListener('click', e => { if (e.target === playerOverlay) playerOverlay.classList.remove('open'); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') playerOverlay.classList.remove('open'); });
+    </script>
+
+    <script>
+    // ── BOUNCING BASKETBALL SCROLL ANIMATION ──
+    (function() {
+      const ball = document.getElementById('scroll-ball');
+      const bounceHeight = 60; // px above the bottom bar
+      const baseBottom  = 6;   // sits just above the color bar
+
+      function update() {
+        const scrollY   = window.scrollY;
+        const maxScroll = document.body.scrollHeight - window.innerHeight;
+        const progress  = maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0;
+
+        // horizontal: travels from -5% to 97% of viewport width
+        const leftPct = -5 + progress * 102;
+
+        // vertical bounce: sine wave — completes ~8 full bounces across the page
+        const bounce = Math.abs(Math.sin(progress * Math.PI * 8)) * bounceHeight;
+
+        // spin: rotates proportional to horizontal travel
+        const deg = progress * 1440;
+
+        ball.style.left   = leftPct + 'vw';
+        ball.style.bottom = (baseBottom + bounce) + 'px';
+        ball.style.transform = `rotate(${deg}deg)`;
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
     </script>
 
     <!-- VALUE POPUP -->
