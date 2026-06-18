@@ -703,11 +703,67 @@
       border-left: 5px solid var(--orange);
       box-shadow: 0 2px 10px rgba(0,0,0,0.06);
       transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
     }
     .value-item:hover {
       transform: translateX(6px);
-      box-shadow: 0 4px 20px rgba(255,107,0,0.15);
+      box-shadow: 0 4px 20px rgba(255,107,0,0.2);
     }
+    .value-item:hover .value-label::after {
+      content: ' →';
+      color: var(--orange);
+    }
+
+    /* value popup */
+    .value-popup-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .value-popup-overlay.open { display: flex; }
+    .value-popup {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 40px 36px;
+      max-width: 420px;
+      width: 90%;
+      position: relative;
+      text-align: center;
+      border-top: 8px solid var(--orange);
+      animation: popIn 0.25s ease;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+    .value-popup-icon { font-size: 3.5rem; margin-bottom: 12px; }
+    .value-popup-title {
+      font-family: var(--font-head);
+      font-size: 2rem;
+      letter-spacing: 2px;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+    .value-popup-desc {
+      font-size: 1rem;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .value-popup-close {
+      position: absolute;
+      top: 14px; right: 18px;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: #aaa;
+    }
+    .value-popup-close:hover { color: var(--orange); }
     .value-icon { font-size: 1.8rem; flex-shrink: 0; }
     .value-label {
       font-family: var(--font-head);
@@ -1530,23 +1586,23 @@
           <!-- left: values -->
           <div class="values-left">
             <div class="values-list">
-              <div class="value-item">
+              <div class="value-item" role="button" tabindex="0" data-value="teamwork">
                 <span class="value-icon" aria-hidden="true">🏀</span>
                 <span class="value-label">Teamwork</span>
               </div>
-              <div class="value-item" style="border-left-color: var(--purple);">
+              <div class="value-item" style="border-left-color: var(--purple);" role="button" tabindex="0" data-value="respect">
                 <span class="value-icon" aria-hidden="true">❤️</span>
                 <span class="value-label">Respect</span>
               </div>
-              <div class="value-item">
+              <div class="value-item" role="button" tabindex="0" data-value="hardwork">
                 <span class="value-icon" aria-hidden="true">💪</span>
                 <span class="value-label">Hard Work</span>
               </div>
-              <div class="value-item" style="border-left-color: var(--green);">
+              <div class="value-item" style="border-left-color: var(--green);" role="button" tabindex="0" data-value="confidence">
                 <span class="value-icon" aria-hidden="true">⭐</span>
                 <span class="value-label">Confidence</span>
               </div>
-              <div class="value-item">
+              <div class="value-item" role="button" tabindex="0" data-value="fun">
                 <span class="value-icon" aria-hidden="true">⚡</span>
                 <span class="value-label">Fun!</span>
               </div>
@@ -1977,6 +2033,53 @@
 
     sections.forEach(s => observer.observe(s));
   </script>
+
+    <!-- VALUE POPUP -->
+    <div class="value-popup-overlay" id="valueOverlay" role="dialog" aria-modal="true" aria-labelledby="valuePopupTitle">
+      <div class="value-popup">
+        <button class="value-popup-close" id="valueClose" aria-label="Close">✕</button>
+        <div class="value-popup-icon" id="valuePopupIcon"></div>
+        <h3 class="value-popup-title" id="valuePopupTitle"></h3>
+        <p class="value-popup-desc" id="valuePopupDesc"></p>
+      </div>
+    </div>
+
+    <script>
+    const valueData = {
+      teamwork:   { icon: '🏀', title: 'TEAMWORK', color: 'var(--orange)', desc: 'On the Hoop Squad, nobody wins alone. We pass, we communicate, and we pick each other up. When one player struggles, the whole squad shows up. That\'s what it means to play together.' },
+      respect:    { icon: '❤️', title: 'RESPECT',  color: 'var(--purple)', desc: 'We treat our teammates, coaches, and opponents the way we want to be treated. Respect means listening, being honest, and never tearing someone down — on or off the court.' },
+      hardwork:   { icon: '💪', title: 'HARD WORK', color: 'var(--orange)', desc: 'Talent gets you started, but hard work is what keeps you in the game. Freaky never stops grinding. The squad shows up early, stays late, and puts in the reps even when nobody\'s watching.' },
+      confidence: { icon: '⭐', title: 'CONFIDENCE', color: 'var(--green)', desc: 'Believing in yourself is the first step. The squad doesn\'t wait to be picked — they step up. Whether you\'re taking the big shot or trying something new, confidence is what gets you on the floor.' },
+      fun:        { icon: '⚡', title: 'FUN!',       color: 'var(--orange)', desc: 'Basketball is supposed to be a blast. Zach reminds the squad every day — laugh, play, and enjoy every moment. When you love what you do, it shows in every play.' },
+    };
+
+    const overlay = document.getElementById('valueOverlay');
+    const popupIcon = document.getElementById('valuePopupIcon');
+    const popupTitle = document.getElementById('valuePopupTitle');
+    const popupDesc = document.getElementById('valuePopupDesc');
+    const popupBox = overlay.querySelector('.value-popup');
+
+    function openValuePopup(key) {
+      const d = valueData[key];
+      if (!d) return;
+      popupIcon.textContent = d.icon;
+      popupTitle.textContent = d.title;
+      popupTitle.style.color = d.color;
+      popupBox.style.borderTopColor = d.color;
+      popupDesc.textContent = d.desc;
+      overlay.classList.add('open');
+      document.getElementById('valueClose').focus();
+    }
+
+    document.querySelectorAll('.value-item[data-value]').forEach(item => {
+      item.addEventListener('click', () => openValuePopup(item.dataset.value));
+      item.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openValuePopup(item.dataset.value); });
+    });
+
+    document.getElementById('valueClose').addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('open'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') overlay.classList.remove('open'); });
+    </script>
 
 </body>
 </html>
