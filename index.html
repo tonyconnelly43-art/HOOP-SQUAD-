@@ -677,6 +677,21 @@
     .values-section {
       padding: 96px 0;
       background: var(--gray-bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .values-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('images/HSlogo.png') center center / 60% auto no-repeat;
+      opacity: 0.05;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .values-section .container {
+      position: relative;
+      z-index: 1;
     }
 
     .values-heading-centered {
