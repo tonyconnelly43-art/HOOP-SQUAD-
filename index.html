@@ -161,13 +161,9 @@
     .nav-logo span.hoop { color: var(--orange); }
     .nav-logo span.ball { font-size: 1.6rem; }
     .nav-logo-shield {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      height: 2.8rem;
+      height: 3.4rem;
       width: auto;
-      z-index: 10;
+      display: block;
       pointer-events: none;
     }
 
@@ -1453,9 +1449,10 @@
        NAVIGATION
   ============================================================ -->
   <nav class="nav" role="navigation" aria-label="Main navigation">
-    <a href="#home" class="nav-logo" aria-label="HOOP SQUAD Home" style="position:relative;">
-      <span class="hoop">HOOP</span>&nbsp;<span>SQUAD</span>
+    <a href="#home" class="nav-logo" aria-label="HOOP SQUAD Home">
+      <span class="hoop">HOOP</span>
       <img src="images/HSlogo.png" alt="" class="nav-logo-shield" aria-hidden="true">
+      <span>SQUAD</span>
     </a>
 
     <div class="nav-links" role="list">
@@ -1877,9 +1874,10 @@
           <div class="footer-top">
 
             <div class="footer-brand">
-              <div class="nav-logo" aria-label="Hoop Squad" style="position:relative;">
-                <span class="hoop">HOOP</span>&nbsp;<span>SQUAD</span>
+              <div class="nav-logo" aria-label="Hoop Squad">
+                <span class="hoop">HOOP</span>
                 <img src="images/HSlogo.png" alt="" class="nav-logo-shield" aria-hidden="true">
+                <span>SQUAD</span>
               </div>
               <p class="footer-tagline">
                 WE PLAY. WE LEARN.<br>
